@@ -23,8 +23,8 @@ if echo "$phpcs_out" | grep -qE '(ERROR|WARNING)'; then
 fi
 
 # PHPStan: analyze the file
-phpstan_out="$(vendor/bin/phpstan analyse --no-progress "$file" 2>&1 | head -20)" || true
-if echo "$phpstan_out" | grep -qE '(Error|--.*Line)'; then
+phpstan_out="$(vendor/bin/phpstan analyse --no-progress "$file" 2>&1 | tail -20)" || true
+if echo "$phpstan_out" | grep -qiE '(error|warning|\-\-.*Line)'; then
   diag="$diag"$'\n'"$phpstan_out"
 fi
 
